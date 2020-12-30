@@ -1,5 +1,5 @@
 # ml-finance-btc
-Using Machine Learning models to forecast Bitcoin price movements.
+Using Machine Learning models to forecast and predict Bitcoin price movements.
 
 ### Domain Background
 
