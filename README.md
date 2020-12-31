@@ -1,55 +1,32 @@
 # ml-finance-btc
 Using Machine Learning models to forecast and predict Bitcoin price movements.
 
-### Domain Background
+## Requirements
 
-Since the 20th century, mathematicians, economists, business analysts and traders have used computers to come up with different technical and fundamental indicators to predict the price movements on the stock market. In one article, The Economist (‘The Rise of the Financial Machines’, 2019) mentioned that algorithmic funds “account for 35% of America’s stock market, 60% of institutional equity assets and 60% of trading activity”, which is an impressive number for the amount of money that means.
+In order to run this project, you will need to run the Jupyter Notebooks in the proper order using AWS Sagemaker. Please mind the following:
+- Please use default Sagemaker SDK (at the time of this writing it is SDK 2.0)
+- Use MXnet 36 compatible jupyter notebooks to run the notebooks in the relevant order
+- A requirements.txt file is included, but it is not necessary to install them. By running the first cell on the first notebook Sagemaker will be able to install the necessary libraries needed outside Sagemaker (which are yfinance and Quandl)
 
-More recent academic research has also explored the use of different Machine Learning algorithms to predict stock price movements. While one may find a lot of academic sources, I would mention some recent studies like ‘Prediction of Stock Market by Principal Component Analysis’ (Waqar, Muhammad & Dawood, Hassan & Guo, Ping & Shahnawaz, Muhammad & Ghazanfar, Mustansar ali., 2017), ‘Forecasting daily stock market return using dimensionality reduction’ (Zhong X. Enke D, 2017), ‘High-performance stock index trading via neural networks and trees’ (Chalvatzis, C., Hristu-Varsakelis, D., 2020) or ‘An innovative neural network approach for stock market prediction’ (Pang, X., Zhou, Y., Wang, P., Lin, W., Chang, V., 2020), all exploring different algorithms and approaches to stock market prediction.
+## Abstract
 
-### Problem Statement
+Since its release in 2008, Bitcoin has marveled the world as a financial asset and store of value, however given its relatively short life span, the factors affecting its price have not been properly identified, price forecasts of traders are highly biased with emotions and opinions and its high volatility can be rarely predicted to create profitable trades. In this project, we gathered a vast set of stock market indexes and commodities price data, interest rates, fundamental Bitcoin parameters (such as hashrate and transactions) and technical indicators (such as relative strength index and moving averages), used Principal Component Analysis to reduce its dimensionality and applied XGBoost and Sklearn’s Neural Network models to forecast day-ahead Bitcoin prices (as a regression problem) and predict its price movements (classification problem, using buy, sell and keep out labels). 
 
-Financial products have evolved, as algorithms and technology also have. With relatively short span of life, one the best performing financial asset is considered to be Bitcoin, created in 2008 by an author (or group of authors) with the pseudonym Satoshi Nakamoto (‘Bitcoin: A Peer-to-Peer Electronic Cash System’, 2008). However, due to the its short and also accelerated growth, Bitcoin has not been studied as other more mature financial assets. For this reason, my objective with this Capstone Project, will be to leverage on different machine learning algorithms to, as a first step, understand the principal components affecting the movements of Bitcoin prices, and as a second step, create a price forecaster or predictor, that I will use for predicting Bitcoin price movements.
- 
-### Datasets and Inputs
+As a result, with the PCA model we could reduce the dimensionality of the original dataset from 27 to 6 features, preserving more than 90% of the variance. When forecasting Bitcoin prices, Sklearn's neural network performed better than XGBoost, both visually (similarity of the curve) and also on the root mean square error on the testing data set (0.10 vs 0.15). When predicting trading signals using multi-class classification, both models resulted in low accuracy (31-60%). This might be due to a natural bias of the feed-in data set, since in historical data Bitcoin shows a higher tendency to have positive daily returns. In future studies, shuffling the dataset before training and validating is recommended and could potentially improve results.
 
-The datasets to be used in this study will mainly rely on stock market price data and fundamental Bitcoin data publicly available in different sources, such as Quandl, TradingView, CoinMarketCap and Investing.com. Some of the characteristics of all these data sets are:
+## Project design and methodology
 
--	They are all time series data 
--	The timeframe taken for the data points will be daily
--	The start date will be since the beginning of Bitcoin in 2008 (wherever data is available)
--	Price data usually in OHLC (open, high, low, close) feature format. For our purposes we may concentrate on the ‘closing’ values if others are not considered relevant. Daily closing values will also be used for further calculations needed.
+In order to achieve a solution to the above-mentioned problem, I’ve split the project into four notebooks containing all the necessary steps on the machine learning workflow, from data sourcing, to model selection, hyperparameter tuning and model deployment and testing. Each notebook is named and includes the following:
 
-Some of the features considered in the input data sets will be:
+1.	Data sourcing and preparation: Includes data sourcing and visualizations, data cleaning (for example, NA values), normalization of data sets and correlation analysis.
 
--	Stock market: Bitcoin price and volume, SPX500, NASDAQ, Dow Jones, DAX30, gold price, silver price, oil price, interest rates (wherever available)
--	Bitcoin fundamental data: hash-rate, block size, transaction fees (wherever available)
+2.	Feature Engineering: Includes Principal Component Analysis and feature assessment.
 
-Additional technical indicators, such as moving averages and relative strength index (RSI), may also be included in the model but will need to be calculated during the project. 
+3.	XGBoost: Includes price forecasting and multi-class trading signal predictor, and partial results analysis from the XGBoost model used.
 
-Solution Statement & Benchmark Models
+4.	Neural Network: Includes price forecasting and multi-class trading signal predictor, plus final discussion and results comparison of both models.
 
-From the set of daily price and technical indicators, we will use Principal Component Analysis to determine the most relevant data vectors affecting Bitcoin price and select appropriate data inputs for our price estimator at a later stage. 
-
-Once the principal components affecting Bitcoin price have been identified using PCA and feature engineering, I will use them to train a model to either forecast, or estimate ‘buy’, ‘sell’ or ‘no trade’ signals optimizing intra-day returns as the optimization variable. For this, my benchmark model will be XGBoost, given its good and lightweight performance, and additionally I will be evaluating a Neural Network against it, since consulted bibliography have proven good results for price predictions of other assets in the past.
-
-### Evaluation Metrics
-
-In order to evaluate my model(s), I will compare the intraday-returns of allocating equity to this predictor over time, in comparison to allocating equity to Bitcoin without using the model. This will first allow us to evaluate if the returns of using the model are actually due to the model performance or if the returns observed are simply due to the growth in Bitcoin prices. This analysis will be done in different market scenarios, i.e. a bull market (period of price increase), a bear market (period of price decrease) and sideways behavior.
-
-When comparing the two models (XGBoost and Neural Networks), the one that performs better will have better cumulative returns over time than the other, being this my main evaluation metric. I will also observe predicted prices on the next day for a number of days and evaluate their accuracy towards the predicted price movement.
-
-### Project Design
-
-While the approach adopted will be the one mentioned before, it may change ‘on-the-go’ if hard blockers are found or if better solutions or approaches are found during the execution. More concretely, the following steps will constitute the project workflow and any changes will be explained in the relevant project notebook(s): 
-
--	Data sourcing, cleaning and normalization
--	Calculation of additional technical indicators
--	Principal Component Analysis and Feature Engineering
--	Bitcoin price forecasters and predictors: XGBoost vs Neural Networks
--	Model evaluation and results discussion
-
-By the end of the project we would have a better idea of the different variables affecting the price of this revolutionary asset, and a predictor of its price movements.
+By the end of the project, we would have a better idea of the different variables affecting the price of this revolutionary asset, and a predictor of its price movements. 
 
 ### Copyright Notice
 
