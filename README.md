@@ -39,7 +39,7 @@ By the end of the project, we would have a better idea of the different variable
 
 Feel free to use, contribute with code and distribute at will. 
 
-Do you want to apply machine learning models on other assets, real-life trading or professional applications? **Get in touch with the author**.
+Do you want to apply machine learning models on other assets, real-life trading or professional applications? [**Get in touch with the author**](https://github.com/renejra).
 
 ### Contribute
 
