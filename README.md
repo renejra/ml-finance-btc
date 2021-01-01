@@ -13,33 +13,33 @@ In order to run this project, you will need to run the Jupyter Notebooks in the 
 
 Since its release in 2008, **Bitcoin** has marveled the world as a financial asset and store of value, however given its relatively short life span, the factors affecting its price have not been properly identified, price forecasts of traders are highly biased with emotions and opinions and its high volatility can be rarely predicted to create profitable trades.
 
-![Comparison of Asset's Daily Returns - log scale](images/preview.jpg)
+![Comparison of Asset's Daily Returns - log scale](images/preview.png)
 
 In this project, we gathered a vast set of stock market indexes and commodities price data, interest rates, fundamental Bitcoin parameters (such as hashrate and transactions) and technical indicators (such as relative strength index and moving averages), used **Principal Component Analysis** to reduce its dimensionality and applied **XGBoost** and **Sklearn’s Neural Network models** to forecast day-ahead Bitcoin prices (as a regression problem) and predict its price movements (classification problem, using buy, sell and stay out labels). 
 
 As a result, with the PCA model we could reduce the dimensionality of the original dataset from 27 to 6 features, preserving more than 90% of the variance. When forecasting Bitcoin prices, Sklearn's neural network performed better than XGBoost, both visually (similarity of the curve) and also on the root mean square error on the testing data set (0.10 vs 0.15). When predicting trading signals using multi-class classification, both models resulted in low accuracy (31-60%). This might be due to a natural bias of the feed-in data set, since in historical data Bitcoin shows a higher tendency to have positive daily returns. In future studies, shuffling the dataset before training and validating is recommended and could potentially improve results.
 
-![Prediction on Test Dataset - Sklearn](images/sklearn.jpg)
+![Prediction on Test Dataset - Sklearn](images/sklearn.png)
 
 ## Project design and methodology
 
 In order to achieve a solution to the above-mentioned problem, I’ve split the project into four notebooks containing all the necessary steps on the machine learning workflow, from data sourcing, to model selection, hyperparameter tuning and model deployment and testing. Each notebook is named and includes the following:
 
-1.	**Data sourcing and preparation**: Includes data sourcing and visualizations, data cleaning (for example, NA values), normalization of data sets and correlation analysis.
+1.	[**Data sourcing and preparation**](1%20-%20Data%20sourcing%20and%20preparation.ipynb): Includes data sourcing and visualizations, data cleaning (for example, NA values), normalization of data sets and correlation analysis.
 
-2.	**Feature engineering**: Includes Principal Component Analysis and feature assessment.
+2.	[**Feature engineering**](2%20-%20Feature%20Engineering.ipynb): Includes Principal Component Analysis and feature assessment.
 
-3.	**XGBoost**: Includes price forecasting and multi-class trading signal predictor, and partial results analysis from the XGBoost model used.
+3.	[**XGBoost**](3%20-%20XGBoost.ipynb): Includes price forecasting and multi-class trading signal predictor, and partial results analysis from the XGBoost model used.
 
-4.	**Neural network**: Includes price forecasting and multi-class trading signal predictor, plus final discussion and results comparison of both models.
+4.	[**Neural network**](4%20-%20Neural%20Network.ipynb): Uses Sklearn's MLPCRegressor for price forecasting and MLPClassifier for multi-class trading signal predictor, plus final discussion and results comparison of both models.
 
-By the end of the project, we would have a better idea of the different variables affecting the price of this revolutionary asset, and a predictor of its price movements. This project was the author's capstone project of Udacity's *Machine Learning Engineer nanodegree*.
+By the end of the project, we would have a better idea of the different variables affecting the price of this revolutionary asset, and a predictor of its price movements. This project was the author's capstone project of Udacity's *Machine Learning Engineer nanodegree*. You may read the [full report in PDF](project%20report.pdf) as well.
 
 ## Copyright Notice
 
 Feel free to use, contribute with code and distribute at will. 
 
-Do you want to apply machine learning models on other assets, real-life trading or professional applications? [**Get in touch with the author**](https://github.com/renejra).
+Do you **want to apply machine learning models on other assets, real-life trading or professional applications**? [**Get in touch with the author**](https://github.com/renejra).
 
 ### Contribute
 
